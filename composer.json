@@ -1,0 +1,41 @@
+{
+  "name": "onesite/imedia-billing",
+  "description": "Imedia Billing",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "9pay.vn",
+      "email": "hotro@9pay.vn",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^7.1",
+    "guzzlehttp/guzzle": "^6.5",
+    "onesite/core": "^1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "OneSite\\Imedia\\Billing\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "files": [
+      "helpers.php"
+    ],
+    "psr-4": {
+      "OneSite\\Imedia\\Billing\\": [
+        "src",
+        "tests"
+      ]
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.x.x-dev"
+    }
+  }
+}
