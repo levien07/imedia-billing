@@ -11,9 +11,12 @@ use OneSite\Imedia\Billing\Contracts\Response;
  */
 class ImediaBillingService implements ImediaBillingInterface
 {
-    const SUCCESS='SUCCESS';
-    const PENDING='PENDING';
-    const FAIL='FAIL';
+    const SUCCESS = 'SUCCESS';
+    const PENDING = 'PENDING';
+    const FAIL = 'FAIL';
+
+    const PATH_PAYMENT = '/v1/sandbox/services/paybill';
+    const PATH_RESPONSE = '/v1/sandbox/services/error_code';
     /**
      * @var Client
      */
@@ -96,10 +99,7 @@ class ImediaBillingService implements ImediaBillingInterface
     {
         return $this->npayPrivateKey;
     }
-    public function getImediaPublicKey()
-    {
-        return $this->imediaPublicKey;
-    }
+
     private $checkBalanceCode = 1013;
 
     private $checkPayCode = 1011;
@@ -136,7 +136,8 @@ class ImediaBillingService implements ImediaBillingInterface
             'partner_trans_id' => $transId,
         ];
         $params['authkey'] = $this->getSignature($params);
-        print_r($params);die;
+        print_r($params);
+        die;
     }
 
     public function payBill($params)
@@ -161,7 +162,7 @@ class ImediaBillingService implements ImediaBillingInterface
 
     public function getResponseCode()
     {
-        $response = $this->getClient()->request('GET', $this->getApiUrl() . "/v1/sandbox/services/error_code", [
+        $response = $this->getClient()->request('GET', $this->getApiUrl() . self::PATH_RESPONSE, [
             'http_errors' => false,
             'verify' => false,
             'headers' => ["Content-Type" => "application/json"],
@@ -189,41 +190,45 @@ class ImediaBillingService implements ImediaBillingInterface
         ];
     }
 
-    public  function getRandomBillCode($status)
+    public function getRandomBillCode($status)
     {
         switch ($status) {
             case self::SUCCESS:
-                return randomStringImedia().'_S';
+                return randomStringImedia() . '_S';
                 break;
             case self::FAIL:
-                return randomStringImedia().'_F';
+                return randomStringImedia() . '_F';
                 break;
             case self::PENDING:
-                return randomStringImedia().'_P';
+                return randomStringImedia() . '_P';
                 break;
         }
     }
 
     private function getSignature(array $params)
     {
-        $signdata='';
         switch ($params['pr_code']) {
             case $this->getBillCode:
-                $signdata='get_bill'.'#'.$params['username'].'#'.$params['password'].'#'.$params['partner_trans_id'].'#'.$params['billing_code'].'#'.$params['service_code'];
+                $signdata = 'get_bill' . '#' . $params['username'] . '#' . $params['password'] . '#' . $params['partner_trans_id'] . '#' . $params['billing_code'] . '#' . $params['service_code'];
                 break;
             case $this->payBillCode:
-                $signdata='pay_bill'.'#'.$params['username'].'#'.$params['password'].'#'.$params['partner_trans_id'].'#'.$params['billing_code'].'#'.$params['service_code'].'#'.$params['reference_code'].'#'.$params['amount'];
+                $signdata = 'pay_bill' . '#' . $params['username'] . '#' . $params['password'] . '#' . $params['partner_trans_id'] . '#' . $params['billing_code'] . '#' . $params['service_code'] . '#' . $params['reference_code'] . '#' . $params['amount'];
                 break;
             case $this->checkPayCode:
-                $signdata='check_pay'.'#'.$params['username'].'#'.$params['password'].'#'.$params['partner_trans_id'].'#'.$params['original_trans_id'];
+                $signdata = 'check_pay' . '#' . $params['username'] . '#' . $params['password'] . '#' . $params['partner_trans_id'] . '#' . $params['original_trans_id'];
                 break;
             case $this->checkBalanceCode:
-                $signdata='check_balance'.'#'.$params['username'].'#'.$params['password'].'#'.$params['partner_trans_id'];
+                $signdata = 'check_balance' . '#' . $params['username'] . '#' . $params['password'] . '#' . $params['partner_trans_id'];
+                break;
+            default:
+                $signdata = '';
                 break;
         }
-        $privateKey = file_get_contents($this->getImediaPublicKey());
+        $privateKey = file_get_contents($this->getNpayPrivateKey());
         $privateKeyId = openssl_pkey_get_private($privateKey);
         openssl_sign($signdata, $binarySignature, $privateKeyId, OPENSSL_ALGO_MD5);
+        echo $binarySignature;
+        die;
         return base64_encode($binarySignature);
     }
 
