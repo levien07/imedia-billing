@@ -1,5 +1,6 @@
 <?php
 
+
 if (!function_exists('config')) {
     /**
      * @param $key
@@ -16,6 +17,7 @@ if (!function_exists('config')) {
         return $config->get($key, $default);
     }
 }
+
 
 if (!function_exists('env')) {
     /**
