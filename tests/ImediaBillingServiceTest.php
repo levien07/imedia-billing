@@ -30,7 +30,7 @@ class ImediaBillingServiceTest extends TestCase
 
         parent::tearDown();
     }
-    public function testPayBill()
+    public function testGetBill()
     {
         $data = $this->service->getBill([
             'service_code' => 'ENV',
@@ -40,7 +40,35 @@ class ImediaBillingServiceTest extends TestCase
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
     }
-
+    public function testPayBill()
+    {
+        $data = $this->service->payBill([
+            'service_code' => 'ENV',
+            'billing_code' => '',
+            'reference_code' => '',
+            'amount' => 50000,
+            'partner_trans_id' => '',
+        ]);
+        echo "\n" . json_encode($data);
+        return $this->assertTrue(true);
+    }
+    public function testCheckPay()
+    {
+        $data = $this->service->checkPay([
+            'original_trans_id' => '',
+            'partner_trans_id' => '',
+        ]);
+        echo "\n" . json_encode($data);
+        return $this->assertTrue(true);
+    }
+    public function testBalance()
+    {
+        $data = $this->service->checkBalance([
+            'partner_trans_id' => '',
+        ]);
+        echo "\n" . json_encode($data);
+        return $this->assertTrue(true);
+    }
     public function testResponseCode()
     {
         $data = $this->service->getResponseCode();

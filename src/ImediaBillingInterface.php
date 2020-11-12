@@ -22,11 +22,6 @@ interface ImediaBillingInterface
      */
     public function payBill($params);
 
-    /**
-     * @param $params
-     * @return mixed
-     */
-    public function cancelPay($params);
 
     /**
      * @param $params

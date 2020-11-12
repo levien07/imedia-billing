@@ -117,11 +117,6 @@ class ImediaBillingService implements ImediaBillingInterface
         return $this->npayPublicKey;
     }
 
-    public function getAmount($amount)
-    {
-        return str_pad($amount, 10, "0", STR_PAD_LEFT) . '00';
-    }
-
     public function getBill($params)
     {
         $serviceCode = !empty($params['service_code']) ? $params['service_code'] : '';
@@ -136,28 +131,156 @@ class ImediaBillingService implements ImediaBillingInterface
             'partner_trans_id' => $transId,
         ];
         $params['authkey'] = $this->getSignature($params);
-        print_r($params);
-        die;
+        $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
+            'http_errors' => false,
+            'verify' => false,
+            'headers' => $this->getHeaders(),
+            'body' => json_encode($params)
+        ]);
+        $statusCode = $response->getStatusCode();
+        if ($statusCode != 200) {
+            return [
+                'error' => [
+                    'message' => 'Có lỗi xảy ra. Vui lòng thử lại.',
+                    'status_code' => $statusCode
+                ],
+                'meta_data' => [
+                    'params' => $params,
+                    'headers' => $this->getHeaders()
+                ]
+            ];
+        }
+        return [
+            'data' => json_encode($response->getBody()->getContents()),
+            'meta_data' => [
+                'params' => $params,
+                'headers' => $this->getHeaders()
+            ]
+        ];
     }
 
     public function payBill($params)
     {
-
-    }
-
-    public function cancelPay($params)
-    {
-
+        $serviceCode = !empty($params['service_code']) ? $params['service_code'] : '';
+        $billingCode = !empty($params['billing_code']) ? $params['billing_code'] : '';
+        $transId = !empty($params['partner_trans_id']) ? $params['partner_trans_id'] : '';
+        $reference_code = !empty($params['reference_code']) ? $params['reference_code'] : '';
+        $amount = !empty($params['amount']) ? $params['amount'] : 0;
+        $params = [
+            'pr_code' => $this->payBillCode,
+            'username' => $this->getUserId(),
+            'password' => $this->getUserPassword(),
+            'service_code' => $serviceCode,
+            'billing_code' => $billingCode,
+            'partner_trans_id' => $transId,
+            'reference_code' => $reference_code,
+            'amount' =>$amount,
+        ];
+        $params['authkey'] = $this->getSignature($params);
+        $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
+            'http_errors' => false,
+            'verify' => false,
+            'headers' => $this->getHeaders(),
+            'body' => json_encode($params)
+        ]);
+        $statusCode = $response->getStatusCode();
+        if ($statusCode != 200) {
+            return [
+                'error' => [
+                    'message' => 'Có lỗi xảy ra. Vui lòng thử lại.',
+                    'status_code' => $statusCode
+                ],
+                'meta_data' => [
+                    'params' => $params,
+                    'headers' => $this->getHeaders()
+                ]
+            ];
+        }
+        return [
+            'data' => json_encode($response->getBody()->getContents()),
+            'meta_data' => [
+                'params' => $params,
+                'headers' => $this->getHeaders()
+            ]
+        ];
     }
 
     public function checkPay($params)
     {
-
+        $originalTransId = !empty($params['original_trans_id']) ? $params['original_trans_id'] : '';
+        $transId = !empty($params['partner_trans_id']) ? $params['partner_trans_id'] : '';
+        $params = [
+            'pr_code' => $this->checkPayCode,
+            'username' => $this->getUserId(),
+            'password' => $this->getUserPassword(),
+            'original_trans_id' => $originalTransId,
+            'partner_trans_id' => $transId,
+        ];
+        $params['authkey'] = $this->getSignature($params);
+        $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
+            'http_errors' => false,
+            'verify' => false,
+            'headers' => $this->getHeaders(),
+            'body' => json_encode($params)
+        ]);
+        $statusCode = $response->getStatusCode();
+        if ($statusCode != 200) {
+            return [
+                'error' => [
+                    'message' => 'Có lỗi xảy ra. Vui lòng thử lại.',
+                    'status_code' => $statusCode
+                ],
+                'meta_data' => [
+                    'params' => $params,
+                    'headers' => $this->getHeaders()
+                ]
+            ];
+        }
+        return [
+            'data' => json_encode($response->getBody()->getContents()),
+            'meta_data' => [
+                'params' => $params,
+                'headers' => $this->getHeaders()
+            ]
+        ];
     }
 
     public function checkBalance($params)
     {
-
+        $transId = !empty($params['partner_trans_id']) ? $params['partner_trans_id'] : '';
+        $params = [
+            'pr_code' => $this->checkBalanceCode,
+            'username' => $this->getUserId(),
+            'password' => $this->getUserPassword(),
+            'partner_trans_id' => $transId,
+        ];
+        $params['authkey'] = $this->getSignature($params);
+        $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
+            'http_errors' => false,
+            'verify' => false,
+            'headers' => $this->getHeaders(),
+            'body' => json_encode($params)
+        ]);
+        $statusCode = $response->getStatusCode();
+        if ($statusCode != 200) {
+            return [
+                'error' => [
+                    'message' => 'Có lỗi xảy ra. Vui lòng thử lại.',
+                    'status_code' => $statusCode
+                ],
+                'meta_data' => [
+                    'params' => $params,
+                    'headers' => $this->getHeaders()
+                ]
+            ];
+        }
+        return [
+            'data' => json_encode($response->getBody()->getContents()),
+            'meta_data' => [
+                'params' => $params,
+                'headers' => $this->getHeaders()
+            ]
+        ];
     }
 
     public function getResponseCode()
@@ -169,11 +292,13 @@ class ImediaBillingService implements ImediaBillingInterface
         ]);
         $statusCode = $response->getStatusCode();
         if ($statusCode != 200) {
-            $result = json_decode($response->getBody()->getContents());
             return [
                 'error' => [
                     'message' => 'Có lỗi xảy ra. Vui lòng thử lại.',
-                    'status_code' => Response::readMessageFromResponseCode($result->code)
+                    'status_code' => $statusCode
+                ],
+                'meta_data' => [
+                    'headers' => $this->getHeaders()
                 ]
             ];
         }
@@ -225,11 +350,9 @@ class ImediaBillingService implements ImediaBillingInterface
                 break;
         }
         $privateKey = file_get_contents($this->getNpayPrivateKey());
-        $privateKeyId = openssl_pkey_get_private($privateKey);
-        openssl_sign($signdata, $binarySignature, $privateKeyId, OPENSSL_ALGO_MD5);
-        echo $binarySignature;
-        die;
-        return base64_encode($binarySignature);
+        $binary_signature = "";
+        openssl_sign($signdata, $binary_signature, $privateKey, "SHA256");
+        return base64_encode($binary_signature);
     }
 
 }
