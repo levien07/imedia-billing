@@ -1,7 +1,7 @@
 <?php
 
 
-namespace OneSite\Napas\Billing;
+namespace OneSite\Imedia\Billing;
 
 
 /**
@@ -39,5 +39,8 @@ interface ImediaBillingInterface
      * @return mixed
      */
     public function checkBalance($params);
+
+    public function getResponseCode();
+
 
 }

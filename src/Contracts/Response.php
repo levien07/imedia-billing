@@ -5,11 +5,11 @@ namespace OneSite\Imedia\Billing\Contracts;
 class Response
 {
     private static $responseCode = [
-        '00' => 'Thành công Giao dịch thành công',
-        '888' => 'Hủy Thành Công Giao dịch thanh toán đã được hủy thành công',
-        '99' => 'Pending Giao dịch đang xử lý (Cần kiểm tra lại kết quả)',
+        '00' => 'Giao dịch thành công',
+        '888' => 'Giao dịch thanh toán đã được hủy thành công',
+        '99' => 'Đang chờ xử lý',
         '999' => 'Hủy Pending Giao dịch Hủy đang được xử lý',
-        '18' => 'Thất bại Giao dịch thất bại.',
+        '18' => 'Giao dịch thất bại.',
         '202' => 'Thất bại Thông tin giao dịch không đúng (thông tin dữ liệu không đúng định dạng, vượt quá độ dài,…)',
         '204' => 'Thất bại pr_code không hợp lệ',
         '205' => 'Thất bại Giao dịch trùng lặp',

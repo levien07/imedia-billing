@@ -29,24 +29,15 @@ if (!function_exists('env')) {
     }
 }
 
-if (!function_exists('storage_path')) {
-    /**
-     * @param string $path
-     * @return string
-     */
-    function storage_path($path = "")
-    {
-        return realpath("storage/" . $path);
-    }
-}
 
-if (!function_exists('base_path')) {
-    /**
-     * @param string $path
-     * @return string
-     */
-    function base_path($path = "")
+if (!function_exists('randomStringImedia')) {
+    function randomStringImedia($length=10)
     {
-        return realpath($path);
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randstring = '';
+        for ($i = 0; $i < $length; $i++) {
+            $randstring = $characters[rand(0, strlen($characters))];
+        }
+        return strtoupper($randstring);
     }
 }
