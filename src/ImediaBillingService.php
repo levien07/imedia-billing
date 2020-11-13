@@ -3,7 +3,7 @@
 namespace OneSite\Imedia\Billing;
 
 use GuzzleHttp\Client;
-use OneSite\Imedia\Billing\Contracts\Response;
+use OneSite\Imedia\Billing\Contracts\DataMap;
 
 /**
  * Class ImediaBillingService
@@ -14,7 +14,6 @@ class ImediaBillingService implements ImediaBillingInterface
     const SUCCESS = 'SUCCESS';
     const PENDING = 'PENDING';
     const FAIL = 'FAIL';
-
     const PATH_PAYMENT = '/v1/sandbox/services/paybill';
     const PATH_RESPONSE = '/v1/sandbox/services/error_code';
     /**
@@ -100,22 +99,28 @@ class ImediaBillingService implements ImediaBillingInterface
         return $this->npayPrivateKey;
     }
 
+    /**
+     * @var int
+     */
     private $checkBalanceCode = 1013;
-
+    /**
+     * @var int
+     */
     private $checkPayCode = 1011;
-
+    /**
+     * @var int
+     */
     private $payBillCode = 1010;
-
+    /**
+     * @var int
+     */
     private $getBillCode = 1009;
 
     /**
-     * @return array|mixed|null
+     * @param $params
+     * @return array|array[]|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-
-    public function getNpayPublicKey()
-    {
-        return $this->npayPublicKey;
-    }
 
     public function getBill($params)
     {
@@ -124,13 +129,15 @@ class ImediaBillingService implements ImediaBillingInterface
         $transId = !empty($params['partner_trans_id']) ? $params['partner_trans_id'] : '';
         $params = [
             'pr_code' => $this->getBillCode,
-            'username' => $this->getUserId(),
-            'password' => $this->getUserPassword(),
-            'service_code' => $serviceCode,
-            'billing_code' => $billingCode,
-            'partner_trans_id' => $transId,
+            'message' => [
+                'username' => $this->getUserId(),
+                'password' => $this->getUserPassword(),
+                'service_code' => $serviceCode,
+                'billing_code' => $billingCode,
+                'partner_trans_id' => $transId,
+            ]
         ];
-        $params['authkey'] = $this->getSignature($params);
+        $params['message']['authkey'] = $this->getSignature($params);
         $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
             'http_errors' => false,
             'verify' => false,
@@ -159,6 +166,11 @@ class ImediaBillingService implements ImediaBillingInterface
         ];
     }
 
+    /**
+     * @param $params
+     * @return array|array[]|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function payBill($params)
     {
         $serviceCode = !empty($params['service_code']) ? $params['service_code'] : '';
@@ -168,15 +180,17 @@ class ImediaBillingService implements ImediaBillingInterface
         $amount = !empty($params['amount']) ? $params['amount'] : 0;
         $params = [
             'pr_code' => $this->payBillCode,
-            'username' => $this->getUserId(),
-            'password' => $this->getUserPassword(),
-            'service_code' => $serviceCode,
-            'billing_code' => $billingCode,
-            'partner_trans_id' => $transId,
-            'reference_code' => $reference_code,
-            'amount' =>$amount,
+            'message' => [
+                'username' => $this->getUserId(),
+                'password' => $this->getUserPassword(),
+                'service_code' => $serviceCode,
+                'billing_code' => $billingCode,
+                'partner_trans_id' => $transId,
+                'reference_code' => $reference_code,
+                'amount' => $amount
+            ]
         ];
-        $params['authkey'] = $this->getSignature($params);
+        $params['message']['authkey'] = $this->getSignature($params);
         $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
             'http_errors' => false,
             'verify' => false,
@@ -205,18 +219,25 @@ class ImediaBillingService implements ImediaBillingInterface
         ];
     }
 
+    /**
+     * @param $params
+     * @return array|array[]|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function checkPay($params)
     {
         $originalTransId = !empty($params['original_trans_id']) ? $params['original_trans_id'] : '';
         $transId = !empty($params['partner_trans_id']) ? $params['partner_trans_id'] : '';
         $params = [
             'pr_code' => $this->checkPayCode,
-            'username' => $this->getUserId(),
-            'password' => $this->getUserPassword(),
-            'original_trans_id' => $originalTransId,
-            'partner_trans_id' => $transId,
+            'message' => [
+                'username' => $this->getUserId(),
+                'password' => $this->getUserPassword(),
+                'original_trans_id' => $originalTransId,
+                'partner_trans_id' => $transId,
+            ]
         ];
-        $params['authkey'] = $this->getSignature($params);
+        $params['message']['authkey'] = $this->getSignature($params);
         $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
             'http_errors' => false,
             'verify' => false,
@@ -245,16 +266,23 @@ class ImediaBillingService implements ImediaBillingInterface
         ];
     }
 
+    /**
+     * @param $params
+     * @return array|array[]|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function checkBalance($params)
     {
         $transId = !empty($params['partner_trans_id']) ? $params['partner_trans_id'] : '';
         $params = [
             'pr_code' => $this->checkBalanceCode,
-            'username' => $this->getUserId(),
-            'password' => $this->getUserPassword(),
-            'partner_trans_id' => $transId,
+            'message' => [
+                'username' => $this->getUserId(),
+                'password' => $this->getUserPassword(),
+                'partner_trans_id' => $transId,
+            ]
         ];
-        $params['authkey'] = $this->getSignature($params);
+        $params['message']['authkey'] = $this->getSignature($params);
         $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
             'http_errors' => false,
             'verify' => false,
@@ -283,6 +311,10 @@ class ImediaBillingService implements ImediaBillingInterface
         ];
     }
 
+    /**
+     * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getResponseCode()
     {
         $response = $this->getClient()->request('GET', $this->getApiUrl() . self::PATH_RESPONSE, [
@@ -307,6 +339,9 @@ class ImediaBillingService implements ImediaBillingInterface
         ];
     }
 
+    /**
+     * @return string[]
+     */
     private function getHeaders()
     {
         return [
@@ -315,35 +350,59 @@ class ImediaBillingService implements ImediaBillingInterface
         ];
     }
 
-    public function getRandomBillCode($status)
+    /**
+     * @param $area
+     * @param $status
+     * @return string
+     */
+    public function getRandomBillCode($area, $status)
     {
+        $areaCode = DataMap::readMapCode($area);
         switch ($status) {
             case self::SUCCESS:
-                return randomStringImedia() . '_S';
+                return $areaCode . randomStringImedia() . '_S';
                 break;
             case self::FAIL:
-                return randomStringImedia() . '_F';
+                return $areaCode . randomStringImedia() . '_F';
                 break;
             case self::PENDING:
-                return randomStringImedia() . '_P';
+                return $areaCode . randomStringImedia() . '_P';
                 break;
         }
     }
 
+    /**
+     * @param $code
+     * @param $area
+     * @return string
+     */
+    public function getServiceCode($code, $area)
+    {
+        $listService = explode('_', $code);
+        if (count($listService) > 1) {
+            return $code . $area;
+        }
+        return $code;
+    }
+
+    /**
+     * @param array $params
+     * @return string
+     */
     private function getSignature(array $params)
     {
         switch ($params['pr_code']) {
             case $this->getBillCode:
-                $signdata = 'get_bill' . '#' . $params['username'] . '#' . $params['password'] . '#' . $params['partner_trans_id'] . '#' . $params['billing_code'] . '#' . $params['service_code'];
+                $signdata = 'get_bill' . '#' . $params['message']['username'] . '#' . $params['message']['password'] . '#' . $params['message']['partner_trans_id'] . '#' . $params['message']['billing_code'] . '#' . $params['message']['service_code'];
                 break;
             case $this->payBillCode:
-                $signdata = 'pay_bill' . '#' . $params['username'] . '#' . $params['password'] . '#' . $params['partner_trans_id'] . '#' . $params['billing_code'] . '#' . $params['service_code'] . '#' . $params['reference_code'] . '#' . $params['amount'];
+                $signdata = 'pay_bill' . '#' . $params['message']['username'] . '#' . $params['message']['password'] . '#' . $params['message']['partner_trans_id'] . '#' . $params['message']['billing_code'] . '#' . $params['message']['service_code'] . '#' . $params['message']['reference_code'] . '#' . $params['message']['amount'];
                 break;
             case $this->checkPayCode:
-                $signdata = 'check_pay' . '#' . $params['username'] . '#' . $params['password'] . '#' . $params['partner_trans_id'] . '#' . $params['original_trans_id'];
+                $signdata = 'check_pay' . '#' . $params['message']['username'] . '#' . $params['message']['password'] . '#' . $params['message']['partner_trans_id'] . '#' . $params['message']['original_trans_id'];
                 break;
             case $this->checkBalanceCode:
-                $signdata = 'check_balance' . '#' . $params['username'] . '#' . $params['password'] . '#' . $params['partner_trans_id'];
+                $signdata = 'check_balance' . '#' . $params['message']['username'] . '#' . $params['message']['password'] . '#' . $params['message']['partner_trans_id'];
                 break;
             default:
                 $signdata = '';
