@@ -84,8 +84,7 @@ class ImediaBillingServiceTest extends TestCase
     }
     public function testServices()
     {
-        $params=['EVN','VNPT_','NHCM','TOYOTA'];
-        $data = $this->service->getService($params);
+        $data = $this->service->getService();
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
     }
