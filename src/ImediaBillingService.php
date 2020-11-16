@@ -5,6 +5,7 @@ namespace OneSite\Imedia\Billing;
 use GuzzleHttp\Client;
 use OneSite\Imedia\Billing\Contracts\DataMap;
 use OneSite\Imedia\Billing\Contracts\Response;
+use OneSite\Imedia\Billing\Contracts\Service;
 
 /**
  * Class ImediaBillingService
@@ -336,8 +337,17 @@ class ImediaBillingService implements ImediaBillingInterface
             ];
         }
         return [
-            'data' => $this->processData($response->getBody()->getContents()),
+            'data' => json_encode($response->getBody()->getContents()),
         ];
+    }
+
+    /**
+     * @param array $params
+     * @return array
+     */
+    public function getService($params=[])
+    {
+        return ['data' => json_encode(Service::listServices($params))];
     }
 
     /**

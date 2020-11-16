@@ -35,7 +35,16 @@ interface ImediaBillingInterface
      */
     public function checkBalance($params);
 
+    /**
+     * @return mixed
+     */
     public function getResponseCode();
+
+    /**
+     * @param $params
+     * @return mixed
+     */
+    public function getService($params);
 
 
 }
