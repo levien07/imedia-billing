@@ -4,6 +4,7 @@ namespace OneSite\Imedia\Billing;
 
 use GuzzleHttp\Client;
 use OneSite\Imedia\Billing\Contracts\DataMap;
+use OneSite\Imedia\Billing\Contracts\Response;
 
 /**
  * Class ImediaBillingService
@@ -158,7 +159,7 @@ class ImediaBillingService implements ImediaBillingInterface
             ];
         }
         return [
-            'data' => json_encode($response->getBody()->getContents()),
+            'data' => $this->processData($response->getBody()->getContents()),
             'meta_data' => [
                 'params' => $params,
                 'headers' => $this->getHeaders()
@@ -211,7 +212,7 @@ class ImediaBillingService implements ImediaBillingInterface
             ];
         }
         return [
-            'data' => json_encode($response->getBody()->getContents()),
+            'data' => $this->processData($response->getBody()->getContents()),
             'meta_data' => [
                 'params' => $params,
                 'headers' => $this->getHeaders()
@@ -258,7 +259,7 @@ class ImediaBillingService implements ImediaBillingInterface
             ];
         }
         return [
-            'data' => json_encode($response->getBody()->getContents()),
+            'data' => $this->processData($response->getBody()->getContents()),
             'meta_data' => [
                 'params' => $params,
                 'headers' => $this->getHeaders()
@@ -303,7 +304,7 @@ class ImediaBillingService implements ImediaBillingInterface
             ];
         }
         return [
-            'data' => json_encode($response->getBody()->getContents()),
+            'data' => $this->processData($response->getBody()->getContents()),
             'meta_data' => [
                 'params' => $params,
                 'headers' => $this->getHeaders()
@@ -335,7 +336,7 @@ class ImediaBillingService implements ImediaBillingInterface
             ];
         }
         return [
-            'data' => json_encode($response->getBody()->getContents()),
+            'data' => $this->processData($response->getBody()->getContents()),
         ];
     }
 
@@ -378,8 +379,8 @@ class ImediaBillingService implements ImediaBillingInterface
      */
     public function getServiceCode($code, $area)
     {
-        $listService = explode('_', $code);
-        if (count($listService) > 1) {
+        if(in_array($code,['VNPT_','ADS_VPNT_','TV_VNPT_']))
+        {
             return $code . $area;
         }
         return $code;
@@ -414,4 +415,16 @@ class ImediaBillingService implements ImediaBillingInterface
         return base64_encode($binary_signature);
     }
 
+    /**
+     * @param $return
+     * @return false|string
+     */
+    private function processData($return)
+    {
+        $data=json_decode($return);
+        if (isset($data->data->final_status)) {
+            $data->return_message = Response::readMessageFromResponseCode($data->data->final_status);
+        }
+        return json_encode($data);
+    }
 }

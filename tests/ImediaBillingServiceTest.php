@@ -47,11 +47,11 @@ class ImediaBillingServiceTest extends TestCase
     public function testPayBill()
     {
         $data = $this->service->payBill([
-            'service_code' => 'ENV',
-            'billing_code' => 'PA05PB12YX2JK2JMSY_S-2787305-kygaClXSWS',
-            'reference_code' => 'EVN-HNI',
+            'service_code' => 'EVN',
+            'billing_code' => 'PB12MYE50RO1JB_S',
+            'reference_code' => 'PB12MYE50RO1JB_S-68386717-ffTsCayKV2',
             'amount' => 100000,
-            'partner_trans_id' => 'kygaClXSWS',
+            'partner_trans_id' => 'ffTsCayKV2',
         ]);
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
@@ -60,8 +60,8 @@ class ImediaBillingServiceTest extends TestCase
     public function testCheckPay()
     {
         $data = $this->service->checkPay([
-            'original_trans_id' => '',
-            'partner_trans_id' => '',
+            'original_trans_id' => 'ffTsCayKV2',
+            'partner_trans_id' => 'ffTsCayKV2',
         ]);
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
@@ -70,7 +70,7 @@ class ImediaBillingServiceTest extends TestCase
     public function testBalance()
     {
         $data = $this->service->checkBalance([
-            'partner_trans_id' => '',
+            'partner_trans_id' => 'QZ8Yi6a9L4',
         ]);
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
