@@ -46,5 +46,7 @@ interface ImediaBillingInterface
      */
     public function getService($params);
 
+    public function listArea();
+
 
 }

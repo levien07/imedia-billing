@@ -3,6 +3,7 @@
 namespace NinePay\Imedia\Billing;
 
 use GuzzleHttp\Client;
+use NinePay\Imedia\Billing\Contracts\Area;
 use NinePay\Imedia\Billing\Contracts\DataMap;
 use NinePay\Imedia\Billing\Contracts\Response;
 use NinePay\Imedia\Billing\Contracts\Service;
@@ -394,6 +395,11 @@ class ImediaBillingService implements ImediaBillingInterface
             return $code . $area;
         }
         return $code;
+    }
+
+    public function listArea()
+    {
+        return Area::listArea();
     }
 
     /**
