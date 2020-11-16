@@ -1,7 +1,7 @@
 <?php
 
 
-namespace OneSite\Imedia\Billing;
+namespace NinePay\Imedia\Billing;
 
 
 /**

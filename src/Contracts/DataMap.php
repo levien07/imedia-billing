@@ -1,6 +1,6 @@
 <?php
 
-namespace OneSite\Imedia\Billing\Contracts;
+namespace NinePay\Imedia\Billing\Contracts;
 
 class DataMap
 {

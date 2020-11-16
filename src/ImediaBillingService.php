@@ -1,11 +1,11 @@
 <?php
 
-namespace OneSite\Imedia\Billing;
+namespace NinePay\Imedia\Billing;
 
 use GuzzleHttp\Client;
-use OneSite\Imedia\Billing\Contracts\DataMap;
-use OneSite\Imedia\Billing\Contracts\Response;
-use OneSite\Imedia\Billing\Contracts\Service;
+use NinePay\Imedia\Billing\Contracts\DataMap;
+use NinePay\Imedia\Billing\Contracts\Response;
+use NinePay\Imedia\Billing\Contracts\Service;
 
 /**
  * Class ImediaBillingService

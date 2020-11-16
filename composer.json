@@ -1,5 +1,5 @@
 {
-  "name": "onesite/imedia-billing",
+  "name": "9pay/imedia-billing",
   "description": "Imedia Billing",
   "license": "MIT",
   "authors": [
@@ -20,7 +20,7 @@
   },
   "autoload": {
     "psr-4": {
-      "OneSite\\Imedia\\Billing\\": "src"
+      "NinePay\\Imedia\\Billing\\": "src"
     }
   },
   "autoload-dev": {
@@ -28,7 +28,7 @@
       "helpers.php"
     ],
     "psr-4": {
-      "OneSite\\Imedia\\Billing\\": [
+      "NinePay\\Imedia\\Billing\\": [
         "src",
         "tests"
       ]
