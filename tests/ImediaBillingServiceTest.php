@@ -47,11 +47,11 @@ class ImediaBillingServiceTest extends TestCase
     public function testPayBill()
     {
         $data = $this->service->payBill([
-            'service_code' => 'EVN',
-            'billing_code' => 'PB12Lo2HJq1tSY_S',
-            'reference_code' => 'PB12LO2HJQ1TSY_S-69665033-ZFEvJ8ukHC',
+            'service_code' => 'VNPT_HBH',
+            'billing_code' => 'PA17SHQkCWl5cI_P',
+            'reference_code' => 'PB12CGYRMQI2DR_S-14431482-qGBzocBZ74',
             'amount' => 100000,
-            'partner_trans_id' => 'ZFEvJ8ukHC',
+            'partner_trans_id' => 'qGBzocBZ74',
         ]);
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
