@@ -34,7 +34,7 @@ class ImediaBillingServiceTest extends TestCase
     public function testGetBill()
     {
         $areaCode = 'AGG';
-        $serviceCode = 'EVN';
+        $serviceCode = 'VNPT_';
         $data = $this->service->getBill([
             'service_code' => $this->service->getServiceCode($serviceCode, $areaCode),
             'billing_code' => $this->service->getRandomBillCode($areaCode, 'SUCCESS'),
@@ -48,10 +48,10 @@ class ImediaBillingServiceTest extends TestCase
     {
         $data = $this->service->payBill([
             'service_code' => 'EVN',
-            'billing_code' => 'PB12MYE50RO1JB_S',
-            'reference_code' => 'PB12MYE50RO1JB_S-68386717-ffTsCayKV2',
+            'billing_code' => 'PB12Lo2HJq1tSY_S',
+            'reference_code' => 'PB12LO2HJQ1TSY_S-69665033-ZFEvJ8ukHC',
             'amount' => 100000,
-            'partner_trans_id' => 'ffTsCayKV2',
+            'partner_trans_id' => 'ZFEvJ8ukHC',
         ]);
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
@@ -60,8 +60,8 @@ class ImediaBillingServiceTest extends TestCase
     public function testCheckPay()
     {
         $data = $this->service->checkPay([
-            'original_trans_id' => 'ffTsCayKV2',
-            'partner_trans_id' => 'ffTsCayKV2',
+            'original_trans_id' => 'ZFEvJ8ukHC',
+            'partner_trans_id' => 'ZFEvJ8ukHC',
         ]);
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
@@ -70,7 +70,7 @@ class ImediaBillingServiceTest extends TestCase
     public function testBalance()
     {
         $data = $this->service->checkBalance([
-            'partner_trans_id' => 'QZ8Yi6a9L4',
+            'partner_trans_id' => 'ZFEvJ8ukHC',
         ]);
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
