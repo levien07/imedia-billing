@@ -67,6 +67,7 @@ class DataMap
         'DNG' => 'PP01',
         'KHA' => 'PQ',
     ];
+    
     public static function readMapCode($code)
     {
         return (!empty(self::$mapCode[$code])) ? self::$mapCode[$code] : '';
