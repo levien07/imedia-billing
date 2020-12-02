@@ -82,15 +82,29 @@ class ImediaBillingServiceTest extends TestCase
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
     }
+
+
     public function testServices()
     {
         $data = $this->service->getService();
+
+        print_r($data);
+        exit();
+
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
     }
     public function testArea()
     {
         $data = $this->service->listArea();
+        echo "\n" . json_encode($data);
+        return $this->assertTrue(true);
+    }
+
+    public function testLogo()
+    {
+        $data = $this->service->getLogoService('VNPT_');
+
         echo "\n" . json_encode($data);
         return $this->assertTrue(true);
     }

@@ -5,6 +5,7 @@ namespace NinePay\Imedia\Billing;
 use GuzzleHttp\Client;
 use NinePay\Imedia\Billing\Contracts\Area;
 use NinePay\Imedia\Billing\Contracts\DataMap;
+use NinePay\Imedia\Billing\Contracts\Logo;
 use NinePay\Imedia\Billing\Contracts\Response;
 use NinePay\Imedia\Billing\Contracts\Service;
 
@@ -349,6 +350,15 @@ class ImediaBillingService implements ImediaBillingInterface
     public function getService($params=[])
     {
         return ['data' => json_encode(Service::listServices($params))];
+    }
+
+    /**
+     * @param string $serviceCode
+     * @return array
+     */
+    public function getLogoService($serviceCode = '')
+    {
+        return ['data' => json_encode(Logo::getLogoService($serviceCode))];
     }
 
     /**
