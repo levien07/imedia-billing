@@ -7,7 +7,7 @@ namespace NinePay\Imedia\Billing\Contracts;
 class Logo
 {
     private static $data = [
-        'EVN' => '',
+        'EVN' => 'https://storage.googleapis.com/npay/images/evn-1607004903.png',
         'VT_Mobile' => 'http://storage.googleapis.com/npay/assets/static/v4/icon/bl/VT_Mobile.png',
         'VT_LandLine' => 'http://storage.googleapis.com/npay/assets/static/v4/icon/bl/VT_LandLine.png',
         'VT_Homephone' => 'http://storage.googleapis.com/npay/assets/static/v4/icon/bl/VT_Homephone.png',
