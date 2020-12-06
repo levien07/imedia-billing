@@ -412,6 +412,11 @@ class ImediaBillingService implements ImediaBillingInterface
         return Area::listArea();
     }
 
+    public function getServiceName($code)
+    {
+        return Service::getServiceName($code);
+    }
+
     /**
      * @param array $params
      * @return string
@@ -453,4 +458,5 @@ class ImediaBillingService implements ImediaBillingInterface
         }
         return json_encode($data);
     }
+
 }

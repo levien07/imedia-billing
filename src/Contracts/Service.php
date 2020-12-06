@@ -5,27 +5,213 @@ namespace NinePay\Imedia\Billing\Contracts;
 class Service
 {
     private static $serviceCode = [
+        'EVN' => [
+            'name' => 'Điện lực',
+            'label' => 'Điện lực'
+        ],
+        'VT_LandLine' => [
+            'label' => 'Điện thoại cố định Viettel',
+            'name' => 'Dịch vụ điện thoại cố định Viettel'
+        ],
+        'VT_Homephone' => [
+            'label' => 'Homephone Viettel',
+            'name' => 'Dịch vụ Homephone Viettel'
+        ],
+        'SST' => [
+            'label' => 'Nam Sài Gòn',
+            'name' => 'Dịch vụ điện thoại cố định Nam Sài Gòn'
+        ],
+        'VNPT_' => [
+            'label' => 'VNPT',
+            'name' => 'Dịch vụ điện thoại cố định VNPT'
+        ],
+        'STCBILLING' => [
+            'label' => 'SPT',
+            'name' => 'Dịch vụ điện thoại cố định SPT'
+        ],
+        'TSVN' => [
+            'label' => 'Vinaphone',
+            'name' => 'Trả sau Vinaphone'
+        ],
+        'TSMB' => [
+            'label' => 'Mobifone',
+            'name' => 'Trả sau Mobiphone'
+        ],
+        'VT_Mobile' => [
+            'label' => 'Viettel',
+            'name' => 'Trả sau Viettel '
+        ],
+        'NHCM' => [
+            'label' => 'Nước Hồ Chí Minh',
+            'name' => 'Nước Hồ Chí Minh'
+        ],
+        'NDT' => [
+            'label' => 'Nước Đồng Tháp',
+            'name' => 'Nước Đồng Tháp'
+        ],
+        'NHUE' => [
+            'label' => 'Nước Huế',
+            'name' => 'Nước Huế'
+        ],
+        'TGGWACO' => [
+            'label' => 'Nước Tiền Giang',
+            'name' => 'Nước Tiền Giang'
+        ],
+        'NCM' => [
+            'label' => 'Nước Cà Mau',
+            'name' => 'Nước Cà Mau'
+        ],
+        'NCT' => [
+            'label' => 'Nước Cần Thơ',
+            'name' => 'Nước Cần Thơ'
+        ],
+        'ADS_SST' => [
+            'label' => 'Nam Sài Gòn',
+            'name' => 'Internet Nam Sài Gòn'
+        ],
+        'ADS_SPT' => [
+            'label' => 'SPT',
+            'name' => 'Internet SPT'
+        ],
+        'ADS_HTVTMS' => [
+            'label' => 'HTV - TMS',
+            'name' => 'Internet HTV - TMS'
+        ],
+        'ADS_VPNT_' => [
+            'label' => 'VNPT',
+            'name' => 'Internet VNPT'
+        ],
+        'ADS_FPT' => [
+            'label' => 'FPT',
+            'name' => 'Internet FPT'
+        ],
+        'ADS_TV_VT' => [
+            'label' => 'Viettel',
+            'name' => 'Truyền hình Viettel'
+        ],
+        'TV_FPT' => [
+            'label' => 'FPT',
+            'name' => 'Truyền hình FPT'
+        ],
+        'TV_VTC' => [
+            'label' => 'VTC',
+            'name' => 'Truyền hình VTC'
+        ],
+        'TV_MOBI' => [
+            'label' => 'MobiTV',
+            'name' => 'Truyền hình MobiTV'
+        ],
+        'TV_MY' => [
+            'label' => 'MyTV',
+            'name' => 'Truyền hình MyTV'
+        ],
+        'KPLUS' => [
+            'label' => 'K+',
+            'name' => 'Truyền hình K+'
+        ],
+        'TV_AVG' => [
+            'label' => 'AVG',
+            'name' => 'Truyền hình AVG'
+        ],
+        'VTVCAB' => [
+            'label' => 'VTVCAB',
+            'name' => 'Truyền hình VTVCAB'
+        ],
+        'TV_VNPT_' => [
+            'label' => 'VNPT',
+            'name' => 'Truyền hình VNPT'
+        ],
+        'FECRDT' => [
+            'label' => 'FE Credit',
+            'name' => 'Tài chính FE Credit'
+        ],
+        'HCDEBT' => [
+            'label' => 'Home Credit',
+            'name' => 'Tài chính Home Credit'
+        ],
+        'OCBCRDT' => [
+            'label' => 'OCB',
+            'name' => 'Tài chính OCB'
+        ],
+        'MCREDIT' => [
+            'label' => 'MCredit',
+            'name' => 'Tài chính MCredit'
+        ],
+        'ATMCRDT' => [
+            'label' => 'ATM Online',
+            'name' => 'Tài chính ATM Online'
+        ],
+        'MSBCRDT' => [
+            'label' => 'MSB',
+            'name' => 'Tài chính MSB'
+        ],
+        'VAP' => [
+            'label' => 'Doctor Dong',
+            'name' => 'Tài chính Doctor Dong'
+        ],
+        'MIRAEASSET' => [
+            'label' => 'Mirae Asset',
+            'name' => 'Tài chính Mirae Asse'
+        ],
+        'ACSCRDT' => [
+            'label' => 'ACS',
+            'name' => 'Tài chính ACS'
+        ],
+        'VEXERE' => [
+            'label' => 'Vexere',
+            'name' => 'Tài chính Vexere'
+        ],
+        'PRUDFINANCE' => [
+            'label' => 'Shinhan Finance',
+            'name' => 'Tài chính Shinhan Finance'
+        ],
+        'SHBFINANCE' => [
+            'label' => 'SHB Finance',
+            'name' => 'Tài chính SHB Finance'
+        ],
+        'TOYOTA' => [
+            'label' => 'Toyota',
+            'name' => 'Tài chính Toyota'
+        ],
+        'PRUDENTINAL' => [
+            'label' => 'Prudentinal',
+            'name' => 'Bảo hiểm Prudentinal'
+        ],
+        'BTAINS' => [
+            'label' => 'Bảo Tâm An',
+            'name' => 'Bảo hiểm Bảo Tâm An'
+        ]
+    ];
+
+    private static $serviceData = [
         'evn' => [
             'name' => 'Điện',
             'logo' => '',
             'is_active' => true,
             'items' => [
-                'EVN' => 'Dịch vụ thanh toán hóa đơn điện'
+                'EVN' => 'Điện lực'
             ]
         ],
         'phone' => [
-            'name' => 'Điện thoại',
+            'name' => 'Điện thoại cố định',
             'logo' => '',
             'is_active' => true,
             'items' => [
-                'VT_Mobile' => 'Dịch vụ di động Viettel (Trả trước và trả sau)',
-                'VT_LandLine' => 'Dịch vụ điện thoại cố định Viettel',
-                'VT_Homephone' => 'Dịch vụ Homephone Viettel',
-                'TSVN' => 'Trả sau Vinaphone',
-                'TSMB' => 'Trả sau Mobiphone',
-                'SST' => 'Dịch vụ cố định Nam Sài Gòn',
-                'VNPT_' => 'Hóa đơn cố định VNPT',
-                'STCBILLING' => 'Cố định SPT'
+                'VT_LandLine' => 'Điện thoại cố định Viettel',
+                'VT_Homephone' => 'Homephone Viettel',
+                'SST' => 'Nam Sài Gòn',
+                'VNPT_' => 'VNPT',
+                'STCBILLING' => 'SPT'
+            ]
+        ],
+        'postpaid' => [
+            'name' => 'Trả sau',
+            'logo' => '',
+            'is_active' => true,
+            'items' => [
+                'TSVN' => 'Vinaphone',
+                'TSMB' => 'Mobifone',
+                'VT_Mobile' => 'Viettel'
             ]
         ],
         'water' => [
@@ -46,43 +232,57 @@ class Service
             'logo' => '',
             'is_active' => true,
             'items' => [
-                'ADS_TV_VT' => 'Internet - Truyền Hình Viettel',
-                'ADS_SST' => 'Internet Nam Sài Gòn',
-                'ADS_SPT' => 'Internet SPT',
-                'ADS_HTVTMS' => 'Internet HTV - TMS',
-                'ADS_VPNT_' => 'Internet VNPT',
-                'ADS_FPT' => 'Internet FPT',
-                'TV_FPT' => 'Truyền hình FPT',
-                'TV_VTC' => 'Truyền hình VTC',
-                'TV_MOBI' => 'Truyền hình MobiTV',
-                'TV_MY' => 'Truyền hình MyTV',
-                'KPLUS' => 'Truyền hình K+',
-                'TV_AVG' => 'Truyền hình AVG',
-                'VTVCAB' => 'Truyền hình VTVCAB',
-                'TV_VNPT_' => 'Truyền hình VNPT'
+                'ADS_SST' => 'Nam Sài Gòn',
+                'ADS_SPT' => 'SPT',
+                'ADS_HTVTMS' => 'HTV - TMS',
+                'ADS_VPNT_' => 'VNPT',
+                'ADS_FPT' => 'FPT',
             ],
         ],
-        'credit' => [
-            'name' => 'Thu hộ',
+        'tv' => [
+            'name' => 'Truyền hình',
             'logo' => '',
             'is_active' => true,
             'items' => [
-                'FECRDT' => 'Vay tiêu dùng FE Credit',
-                'HCDEBT' => 'Vay tiêu dùng Home Credit',
-                'PRUDENTINAL' => 'Thu hộ Prudentinal',
-                'OCBCRDT' => 'Thu hộ OCB',
-                'MCREDIT' => 'Thu hộ MCredit',
-                'ATMCRDT' => 'Thu hộ ATM Online',
-                'MSBCRDT' => 'Thu hộ MSB',
-                'VAP' => 'Thu hộ Doctor Dong',
-                'MIRAEASSET' => 'Thu hộ Mirae Asset',
-                'ACSCRDT' => 'Thu hộ ACS',
-                'BTAINS' => 'Bảo hiểm Bảo Tâm An',
-                'VEXERE' => 'Thu hộ Vexere',
-                'PRUDFINANCE' => 'Thu hộ Shinhan Finance',
-                'SHBFINANCE' => 'Thu hộ SHB Finance',
-                'TOYOTA' => 'Thu hộ Toyota'
+                'ADS_TV_VT' => 'Viettel',
+                'TV_FPT' => 'FPT',
+                'TV_VTC' => 'VTC',
+                'TV_MOBI' => 'MobiTV',
+                'TV_MY' => 'MyTV',
+                'KPLUS' => 'K+',
+                'TV_AVG' => 'AVG',
+                'VTVCAB' => 'VTVCAB',
+                'TV_VNPT_' => 'VNPT'
             ],
+        ],
+        'credit' => [
+            'name' => 'Tài chính',
+            'logo' => '',
+            'is_active' => true,
+            'items' => [
+                'FECRDT' => 'FE Credit',
+                'HCDEBT' => 'Home Credit',
+                'OCBCRDT' => 'OCB',
+                'MCREDIT' => 'MCredit',
+                'ATMCRDT' => 'ATM Online',
+                'MSBCRDT' => 'MSB',
+                'VAP' => 'Doctor Dong',
+                'MIRAEASSET' => 'Mirae Asset',
+                'ACSCRDT' => 'ACS',
+                'VEXERE' => 'Vexere',
+                'PRUDFINANCE' => 'Shinhan Finance',
+                'SHBFINANCE' => 'SHB Finance',
+                'TOYOTA' => 'Toyota'
+            ],
+        ],
+        'insurrance' => [
+            'name' => 'Bảo hiểm',
+            'logo' => '',
+            'is_active' => true,
+            'items' => [
+                'PRUDENTINAL' => 'Prudentinal',
+                'BTAINS' => 'Bảo Tâm An'
+            ]
         ]
     ];
 
@@ -90,13 +290,13 @@ class Service
     public static function listServices($params)
     {
         $list = [];
-        foreach (self::$serviceCode as $key_ser=> $services) {
+        foreach (self::$serviceData as $key_ser => $services) {
             $list[$key_ser]['name'] = $services['name'];
             $list[$key_ser]['logo'] = $services['logo'];
             $list[$key_ser]['is_active'] = $services['is_active'];
 
             foreach ($services['items'] as $key => $service) {
-                if($params) {
+                if ($params) {
                     if (in_array($key, $params)) {
                         $list[$key_ser]['items'][] = [
                             'logo' => Logo::getLogoService($key),
@@ -104,7 +304,7 @@ class Service
                             'name' => $service
                         ];
                     }
-                }else{
+                } else {
                     $list[$key_ser]['items'][] = [
                         'logo' => Logo::getLogoService($key),
                         'code' => $key,
@@ -116,4 +316,8 @@ class Service
         return $list;
     }
 
+    public static function getServiceName($serviceCode)
+    {
+        return self::$serviceCode[$serviceCode]['name'] ?? '';
+    }
 }

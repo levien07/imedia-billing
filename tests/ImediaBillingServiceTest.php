@@ -31,6 +31,8 @@ class ImediaBillingServiceTest extends TestCase
         parent::tearDown();
     }
 
+    //     * PHPUnit test: vendor/bin/phpunit --filter=testGetBill tests/ImediaBillingServiceTest.php
+
     public function testGetBill()
     {
         $areaCode = 'AGG';
