@@ -316,8 +316,8 @@ class Service
         return $list;
     }
 
-    public static function getServiceName($serviceCode)
+    public static function getServiceName($code)
     {
-        return self::$serviceCode[$serviceCode]['name'] ?? '';
+        return  self::$serviceCode[$code]['name'] ?? '' ;
     }
 }
