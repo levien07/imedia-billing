@@ -291,27 +291,35 @@ class Service
     {
         $list = [];
         foreach (self::$serviceData as $key_ser => $services) {
-            $list[$key_ser]['name'] = $services['name'];
-            $list[$key_ser]['logo'] = $services['logo'];
-            $list[$key_ser]['is_active'] = $services['is_active'];
+            $result = [
+                'code' => $key_ser,
+                'name' => $services['name'],
+                'logo' => $services['logo'],
+                'is_active' => $services['is_active']
+            ];
 
+            $items = [];
             foreach ($services['items'] as $key => $service) {
                 if ($params) {
                     if (in_array($key, $params)) {
-                        $list[$key_ser]['items'][] = [
+                        $items[] = [
                             'logo' => Logo::getLogoService($key),
                             'code' => $key,
                             'name' => $service
                         ];
                     }
                 } else {
-                    $list[$key_ser]['items'][] = [
+                    $items[] = [
                         'logo' => Logo::getLogoService($key),
                         'code' => $key,
                         'name' => $service
                     ];
                 }
             }
+
+            $result['items'] = $items;
+
+            $list[] = $result;
         }
         return $list;
     }
