@@ -18,8 +18,8 @@ class ImediaBillingService implements ImediaBillingInterface
     const SUCCESS = 'SUCCESS';
     const PENDING = 'PENDING';
     const FAIL = 'FAIL';
-    const PATH_PAYMENT = '/v1/sandbox/services/paybill';
-    const PATH_RESPONSE = '/v1/sandbox/services/error_code';
+    const PATH_PAYMENT = '/v1/services/paybill';
+    const PATH_RESPONSE = '/v1/services/error_code';
     /**
      * @var Client
      */
@@ -54,7 +54,7 @@ class ImediaBillingService implements ImediaBillingInterface
     public function __construct()
     {
         $this->client = new Client();
-        $this->apiUrl = config('imedia.billing.api_url');
+        $this->apiUrl = rtrim(config('imedia.billing.api_url'), '/');
         $this->userId = config('imedia.billing.user_id');
         $this->userPassword = config('imedia.billing.user_password');
         $this->npayPrivateKey = config('imedia.billing.9pay_private_key');
