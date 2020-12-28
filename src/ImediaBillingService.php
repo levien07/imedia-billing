@@ -47,6 +47,11 @@ class ImediaBillingService implements ImediaBillingInterface
     private $npayPublicKey;
     private $imediaPublicKey;
 
+
+    private $pathPayment;
+
+    private $pathResponse;
+
     /**
      * @var array|mixed|null
      */
@@ -60,6 +65,9 @@ class ImediaBillingService implements ImediaBillingInterface
         $this->npayPrivateKey = config('imedia.billing.9pay_private_key');
         $this->npayPublicKey = config('imedia.billing.9pay_public_key');
         $this->imediaPublicKey = config('imedia.billing.imedia_public_key');
+
+        $this->pathPayment = ltrim(config('imedia.billing.path_payment'), '/');
+        $this->pathResponse = ltrim(config('imedia.billing.path_response'), '/');
 
     }
 
@@ -142,7 +150,7 @@ class ImediaBillingService implements ImediaBillingInterface
             ]
         ];
         $params['message']['authkey'] = $this->getSignature($params);
-        $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
+        $response = $this->getClient()->request('POST', $this->getApiUrl() .'/'.$this->pathPayment, [
             'http_errors' => false,
             'verify' => false,
             'headers' => $this->getHeaders(),
@@ -195,7 +203,7 @@ class ImediaBillingService implements ImediaBillingInterface
             ]
         ];
         $params['message']['authkey'] = $this->getSignature($params);
-        $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
+        $response = $this->getClient()->request('POST', $this->getApiUrl().'/'.$this->pathPayment, [
             'http_errors' => false,
             'verify' => false,
             'headers' => $this->getHeaders(),
@@ -242,7 +250,7 @@ class ImediaBillingService implements ImediaBillingInterface
             ]
         ];
         $params['message']['authkey'] = $this->getSignature($params);
-        $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
+        $response = $this->getClient()->request('POST', $this->getApiUrl().'/'.$this->pathPayment, [
             'http_errors' => false,
             'verify' => false,
             'headers' => $this->getHeaders(),
@@ -287,7 +295,7 @@ class ImediaBillingService implements ImediaBillingInterface
             ]
         ];
         $params['message']['authkey'] = $this->getSignature($params);
-        $response = $this->getClient()->request('POST', $this->getApiUrl() . self::PATH_PAYMENT, [
+        $response = $this->getClient()->request('POST', $this->getApiUrl().'/'.$this->pathPayment, [
             'http_errors' => false,
             'verify' => false,
             'headers' => $this->getHeaders(),
@@ -321,7 +329,7 @@ class ImediaBillingService implements ImediaBillingInterface
      */
     public function getResponseCode()
     {
-        $response = $this->getClient()->request('GET', $this->getApiUrl() . self::PATH_RESPONSE, [
+        $response = $this->getClient()->request('GET', $this->getApiUrl().'/'.$this->pathResponse, [
             'http_errors' => false,
             'verify' => false,
             'headers' => ["Content-Type" => "application/json"],
