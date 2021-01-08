@@ -77,7 +77,7 @@ class Service
             'label' => 'HTV - TMS',
             'name' => 'Internet HTV - TMS'
         ],
-        'ADS_VPNT_' => [
+        'ADS_VNPT_' => [
             'label' => 'VNPT',
             'name' => 'Internet VNPT'
         ],
@@ -235,7 +235,7 @@ class Service
                 'ADS_SST' => 'Nam Sài Gòn',
                 'ADS_SPT' => 'SPT',
                 'ADS_HTVTMS' => 'HTV - TMS',
-                'ADS_VPNT_' => 'VNPT',
+                'ADS_VNPT_' => 'VNPT',
                 'ADS_FPT' => 'FPT',
             ],
         ],

@@ -408,7 +408,7 @@ class ImediaBillingService implements ImediaBillingInterface
      */
     public function getServiceCode($code, $area)
     {
-        if(in_array($code,['VNPT_','ADS_VPNT_','TV_VNPT_']))
+        if(in_array($code,['VNPT_','ADS_VNPT_','TV_VNPT_']))
         {
             return $code . $area;
         }
